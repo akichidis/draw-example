@@ -1,6 +1,6 @@
-package com.example.contract
+package com.draws.contract
 
-import com.example.state.DrawState
+import com.draws.state.DrawState
 import net.corda.core.contracts.Contract
 import net.corda.core.contracts.requireSingleCommand
 import net.corda.core.contracts.requireThat

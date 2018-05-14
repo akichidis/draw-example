@@ -1,4 +1,4 @@
-package com.example.state
+package com.draws.state
 
 import net.corda.core.contracts.CommandData
 import net.corda.core.contracts.ContractState
