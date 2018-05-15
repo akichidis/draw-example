@@ -33,20 +33,19 @@ open class DrawContract : Contract {
             val drawState = tx.inRefsOfType<DrawState>().first()
             val stateData = drawState.state.data
 
-            //require to have only 1 command of that type
+            //Require to have only 1 command of that type
             val command = tx.commands.requireSingleCommand<DrawState.StockIndexPricesCommand>()
             val oraclePublicKey = stateData.oracle.owningKey
 
             "Provided stock index data is wrong" using (command.value.index == stateData.index)
-
             "Command signer is other than state's oracle" using (command.signers.contains(oraclePublicKey))
 
             val seed = command.value.prices
 
-            //hash the prices
+            //Hash the prices concatenated with every user's ticket id
             val participantResults = stateData.drawParticipants.map { p -> Pair(p, toInt(SecureHash.sha256(p.ticketId + seed))) }
 
-            //sort  based on the hash int results
+            //Sort based on the hash int results
             sort(participantResults, { p1, p2 -> p1.second.compareTo(p2.second) })
 
             val winner = participantResults.last()
