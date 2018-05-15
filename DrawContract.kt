@@ -37,7 +37,7 @@ open class DrawContract : Contract {
             val command = tx.commands.requireSingleCommand<DrawState.StockIndexPricesCommand>()
             val oraclePublicKey = stateData.oracle.owningKey
 
-            "Provided stock index data is wrong" using (command.value.index == stateData.index)
+            "Provided stock stockIndex data is wrong" using (command.value.stockIndex == stateData.stockIndex)
             "Command signer is other than state's oracle" using (command.signers.contains(oraclePublicKey))
 
             val seed = command.value.prices
